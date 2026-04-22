@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist de Documentos — Visual Work | Live Consultoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --live-bg: #06192a;
+    --live-surface: rgba(255,255,255,0.04);
+    --live-border: rgba(255,255,255,0.08);
+    --live-neon: #00e800;
+    --live-neon-dim: rgba(0,232,0,0.10);
+    --live-text: #ffffff;
+    --live-muted: #94a3b8;
+    --live-danger: #ff4d4d;
+    --live-warn: #f59e0b;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--live-bg);
+    color: var(--live-text);
+    line-height: 1.6;
+    padding: 48px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+  h2 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
+  p  { font-size: 0.95rem; color: var(--live-muted); font-weight: 300; }
+  strong { color: var(--live-text); font-weight: 500; }
+
+  .logo { width: 110px; margin-bottom: 40px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--live-neon-dim); color: var(--live-neon);
+    padding: 5px 13px; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 700; font-family: var(--font-display);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border: 1px solid rgba(0,232,0,0.25);
+    margin-bottom: 16px;
+  }
+  .badge.warn  { background: rgba(245,158,11,0.10); color: var(--live-warn); border-color: rgba(245,158,11,0.25); }
+  .badge.red   { background: rgba(255,77,77,0.10);  color: var(--live-danger); border-color: rgba(255,77,77,0.25); }
+
+  .section {
+    border: 1px solid var(--live-border);
+    border-radius: 14px;
+    padding: 28px 28px 20px;
+    margin-bottom: 24px;
+    background: var(--live-surface);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--live-border);
+  }
+  .dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot.green  { background: var(--live-neon);   box-shadow: 0 0 8px var(--live-neon); }
+  .dot.yellow { background: var(--live-warn);   box-shadow: 0 0 8px var(--live-warn); }
+  .dot.red    { background: var(--live-danger); box-shadow: 0 0 8px var(--live-danger); }
+  .dot.blue   { background: #60a5fa;            box-shadow: 0 0 8px #60a5fa; }
+
+  .item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .checkbox {
+    width: 20px; height: 20px; border-radius: 5px;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0; margin-top: 1px;
+    background: transparent;
+  }
+
+  .item-num {
+    font-family: var(--font-display);
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--live-neon);
+    min-width: 24px; text-align: right;
+    margin-top: 2px;
+  }
+
+  .item-body { flex: 1; }
+  .item-title { font-size: 0.97rem; color: #fff; font-weight: 500; margin-bottom: 2px; }
+  .item-desc  { font-size: 0.82rem; color: var(--live-muted); font-weight: 300; }
+
+  .tag-urgente {
+    display: inline-block; font-size: 0.68rem; font-weight: 700;
+    color: var(--live-danger); background: rgba(255,77,77,0.12);
+    border: 1px solid rgba(255,77,77,0.25);
+    border-radius: 100px; padding: 1px 8px;
+    font-family: var(--font-display); letter-spacing: 0.04em;
+    vertical-align: middle; margin-left: 6px;
+  }
+
+  .summary-box {
+    background: radial-gradient(circle at top left, rgba(0,232,0,0.06) 0%, transparent 60%),
+                rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,232,0,0.2);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .summary-box h2 { color: var(--live-neon); margin-bottom: 12px; }
+  .summary-row {
+    display: flex; gap: 10px; align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .summary-row:last-child { margin-bottom: 0; }
+  .sum-bullet { color: var(--live-neon); font-weight: 700; flex-shrink: 0; }
+
+  .note-box {
+    background: rgba(245,158,11,0.07);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+  .note-box p { color: rgba(245,158,11,0.9); font-size: 0.88rem; }
+  .note-box strong { color: var(--live-warn); }
+
+  .footer-doc {
+    margin-top: 48px;
+    border-top: 1px solid var(--live-border);
+    padding-top: 24px;
+    text-align: center;
+  }
+  .footer-doc p { font-size: 0.8rem; color: rgba(148,163,184,0.5); }
+
+  /* ─── PRINT STYLES ─── */
+  @media print {
+    body { background: #fff; color: #111; padding: 24px 32px; max-width: 100%; }
+    :root {
+      --live-bg: #fff;
+      --live-surface: #f8f9fa;
+      --live-border: #e2e8f0;
+      --live-neon: #16a34a;
+      --live-neon-dim: rgba(22,163,74,0.08);
+      --live-text: #111827;
+      --live-muted: #6b7280;
+      --live-danger: #dc2626;
+      --live-warn: #d97706;
+    }
+    h1, h2, h3, h4 { color: #111827; }
+    .section { border-color: #e2e8f0; background: #f8f9fa; break-inside: avoid; }
+    .section-header { border-bottom-color: #e2e8f0; }
+    .item { border-bottom-color: #f0f0f0; }
+    .item-title { color: #111827; }
+    .item-desc  { color: #6b7280; }
+    .checkbox { border-color: #9ca3af; }
+    .summary-box { background: #f0fdf4; border-color: #86efac; }
+    .summary-box h2 { color: #16a34a; }
+    .sum-bullet { color: #16a34a; }
+    .note-box { background: #fffbeb; border-color: #fcd34d; }
+    .note-box p { color: #92400e; }
+    .note-box strong { color: #b45309; }
+    .tag-urgente { color: #dc2626; background: #fee2e2; border-color: #fca5a5; }
+    .dot.green  { background: #16a34a; box-shadow: none; }
+    .dot.yellow { background: #d97706; box-shadow: none; }
+    .dot.red    { background: #dc2626; box-shadow: none; }
+    .dot.blue   { background: #2563eb; box-shadow: none; }
+    .badge      { background: rgba(22,163,74,0.08); color: #16a34a; border-color: rgba(22,163,74,0.3); }
+    .badge.warn { background: rgba(217,119,6,0.08); color: #d97706; border-color: rgba(217,119,6,0.3); }
+    .badge.red  { background: rgba(220,38,38,0.08); color: #dc2626; border-color: rgba(220,38,38,0.3); }
+    .item-num   { color: #16a34a; }
+    .footer-doc p { color: #9ca3af; }
+  }
+</style>
+</head>
+<body>
+
+  <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" class="logo" alt="Live Consultoria">
+
+  <div class="badge">Checklist Operacional · Onboarding do Cliente</div>
+  <h1>Documentos Necessários para Início da Consultoria</h1>
+  <p style="margin-top:10px; margin-bottom:40px; max-width: 620px;">
+    A Visual Work deve reunir e enviar os documentos abaixo para que a <strong>Live Consultoria</strong>
+    elabore o contrato e dê início às atividades previstas no Diagnóstico MAPCA.
+    Os itens marcados como <span class="tag-urgente">URGENTE</span> devem ser enviados na primeira semana.
+  </p>
+
+  <!-- ── BLOCO 1: CONTRATO ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="dot green"></div>
+      <div>
+        <div class="badge" style="margin-bottom:4px;">Bloco 1 · Semana 1</div>
+        <h2 style="margin-bottom:0;">Documentos Cadastrais — Para Assinatura do Contrato</h2>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">01</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Cartão CNPJ atualizado <span class="tag-urgente">URGENTE</span></div>
+        <div class="item-desc">Identificação jurídica da empresa para formalização contratual.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">02</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">CPF e RG do responsável legal (Sr. Cayro) <span class="tag-urgente">URGENTE</span></div>
+        <div class="item-desc">Necessário para constar na assinatura do contrato de consultoria.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">03</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Contrato Social / última alteração contratual</div>
+        <div class="item-desc">Para confirmar quem possui poderes de representação e assinatura.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">04</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Comprovante de endereço da empresa</div>
+        <div class="item-desc">Conta de água, luz ou telefone em nome da PJ (últimos 90 dias).</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">05</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Dados bancários da empresa (PJ)</div>
+        <div class="item-desc">Banco, agência, número da conta e tipo — para emissão de cobrança da mensalidade.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BLOCO 2: FINANCEIRO ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="dot red"></div>
+      <div>
+        <div class="badge red" style="margin-bottom:4px;">Bloco 2 · Semana 1 — Prioridade Crítica</div>
+        <h2 style="margin-bottom:0;">Documentos Financeiros — Para Início Imediato</h2>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">06</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Extratos bancários dos últimos 3 meses (todas as contas PJ) <span class="tag-urgente">URGENTE</span></div>
+        <div class="item-desc">Base para construção do fluxo de caixa real e mapa de comprometimento mensal.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">07</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Contratos de empréstimo e financiamento (todos) <span class="tag-urgente">URGENTE</span></div>
+        <div class="item-desc">Incluindo contratos da Caixa Econômica (taxa 3,5%), capital de giro e financiamentos de máquinas — para análise de brechas e renegociação.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">08</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Listagem de contas a pagar (vencidas e a vencer)</div>
+        <div class="item-desc">Pode ser planilha Excel, PDF ou print do sistema LINX. Base para o DRE e mapa de passivos.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">09</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Listagem de contas a receber</div>
+        <div class="item-desc">Pedidos em aberto, notas emitidas não pagas e previsão de entrada. Necessário para entender o fluxo real de caixa.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">10</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Contratos de antecipação de recebíveis (se houver)</div>
+        <div class="item-desc">Para mapear o custo efetivo do dinheiro e o impacto no caixa futuro das antecipações sistemáticas.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">11</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Último balanço ou balancete contábil (se existir)</div>
+        <div class="item-desc">Fornecido pelo contador. Caso não exista, os extratos e listagens acima suprem parcialmente.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">12</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Levantamento de débitos fiscais (Dr. Luciano) <span class="tag-urgente">URGENTE</span></div>
+        <div class="item-desc">O advogado Dr. Luciano já possui o mapeamento completo dos débitos na Receita Federal. Solicitar o relatório para análise da consultoria.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">13</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Faturamento mensal dos últimos 12 meses</div>
+        <div class="item-desc">Relatório de vendas por mês para análise de sazonalidade e base de receita real.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BLOCO 3: OPERACIONAL ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="dot yellow"></div>
+      <div>
+        <div class="badge warn" style="margin-bottom:4px;">Bloco 3 · Semana 2</div>
+        <h2 style="margin-bottom:0;">Documentos Operacionais — Para Mapeamento de Processos</h2>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">14</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Folha de funcionários atual</div>
+        <div class="item-desc">Nome, cargo/função, salário e data de admissão de cada colaborador. Base para organograma e funcionograma.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">15</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Contratos dos sistemas (LINX, Audaces e outros)</div>
+        <div class="item-desc">Para entender o que está sendo pago, o que está incluso no plano e quais funcionalidades podem ser ativadas sem custo adicional.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">16</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Registro do incidente de expedição (Jales Machado)</div>
+        <div class="item-desc">Nota fiscal, e-mail ou qualquer registro do caso da peça a mais que foi entregue. Serve para embasar e documentar a solução de bipagem.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BLOCO 4: ISO / CERTIFICAÇÃO ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="dot blue"></div>
+      <div>
+        <div class="badge" style="margin-bottom:4px; background: rgba(96,165,250,0.10); color:#60a5fa; border-color:rgba(96,165,250,0.25);">Bloco 4 · Até o Fim do Mês 1</div>
+        <h2 style="margin-bottom:0;">Documentos para Certificação ISO / CA</h2>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">17</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Certificado CA vigente (se houver)</div>
+        <div class="item-desc">Para verificar o status atual das certificações e o que precisa ser renovado ou obtido.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">18</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Documentos de qualidade já existentes</div>
+        <div class="item-desc">Procedimentos, checklists, manuais operacionais ou qualquer documento de processo que já esteja formalizado — para reaproveitar no processo ISO.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">19</div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Registro de reclamações de clientes (formal ou informal)</div>
+        <div class="item-desc">E-mails, anotações ou qualquer registro de reclamações recebidas. Base para o sistema de gestão de não-conformidades exigido pela ISO.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESUMO ── -->
+  <div class="summary-box">
+    <h2>📅 Resumo — O Que Enviar e Quando</h2>
+    <div class="summary-row">
+      <div class="sum-bullet">▸</div>
+      <div><strong>Semana 1 (imediato):</strong> Cartão CNPJ, CPF/RG do Sr. Cayro, contratos bancários, extratos 3 meses, levantamento fiscal do Dr. Luciano.</div>
+    </div>
+    <div class="summary-row">
+      <div class="sum-bullet">▸</div>
+      <div><strong>Semana 2:</strong> Folha de funcionários, contratos dos sistemas, contas a pagar/receber, faturamento 12 meses.</div>
+    </div>
+    <div class="summary-row">
+      <div class="sum-bullet">▸</div>
+      <div><strong>Até o fim do Mês 1:</strong> Documentos de qualidade existentes, certificado CA (se houver), registro de reclamações de clientes.</div>
+    </div>
+  </div>
+
+  <!-- ── NOTA ── -->
+  <div class="note-box">
+    <p>
+      <strong>📌 Ponto de contato:</strong> Os documentos devem ser enviados por <strong>Alane (Lanny)</strong>,
+      conforme combinado na reunião de diagnóstico. Documentos físicos podem ser fotografados ou escaneados —
+      o formato digital já é suficiente para início das análises.
+      Dúvidas: <strong>luizportal@ecossistemalive.com.br</strong>
+    </p>
+  </div>
+
+  <div class="footer-doc">
+    <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" style="width:80px; opacity:0.4; margin-bottom:12px;" alt="Live Consultoria"><br>
+    <p>Live Consultoria Empresarial · Luiz Portal · Diagnóstico MAPCA — Visual Work · Abril de 2026</p>
+    <p style="margin-top:6px;">Para imprimir como PDF: Ctrl+P → Salvar como PDF</p>
+  </div>
+
+</body>
+</html>
